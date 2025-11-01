@@ -1,5 +1,6 @@
 ALL_SPACES = list("123456789")
 X, O, BLANK = "X", "O", " "
+import copy
 
 
 class TTTBoard:
@@ -57,12 +58,39 @@ class MiniBoard(TTTBoard):
         return boardStr
 
 
+class HintBoard(TTTBoard):
+    def getBoardStr(self):
+        boardStr = super().getBoardStr()
+
+        xCanWin = False
+        oCanWin = False
+        originalSpaces = self._spaces
+        for space in ALL_SPACES:
+            self._spaces = copy.copy(originalSpaces)
+            if self._spaces[space] == BLANK:
+                self._spaces[space] = X
+            if self.isWinner(X):
+                xCanWin = True
+            self._spaces = copy.copy(originalSpaces)
+            if self._spaces[space] == BLANK:
+                self._spaces[space] = O
+            if self.isWinner(O):
+                oCanWin = True
+        if xCanWin:
+            boardStr += "\nX can win in one more move."
+        if oCanWin:
+            boardStr += "\nO can win in one more move."
+        self._spaces = originalSpaces
+        return boardStr
+
+
 def main():
     print("Welcome to tic-tac-toe!")
-    if input("use mini board? Y/N: ").lower().startswith("y"):
-        gameBoard = MiniBoard()
-    else:
-        gameBoard = TTTBoard()
+    # if input("use mini board? Y/N: ").lower().startswith("y"):
+    #     gameBoard = MiniBoard()
+    # else:
+    #     gameBoard = TTTBoard()
+    gameBoard = HintBoard()
     currentPlayer, nextPlayer = X, O
 
     while True:
