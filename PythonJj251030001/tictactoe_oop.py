@@ -42,9 +42,27 @@ class TTTBoard:
         self._spaces[space] = mark
 
 
+class MiniBoard(TTTBoard):
+    def getBoardStr(self):
+        for space in ALL_SPACES:
+            if self._spaces[space] == BLANK:
+                self._spaces[space] = "."
+        boardStr = f"""
+        {self._spaces['1']}{self._spaces['2']}{self._spaces['3']} 123
+        {self._spaces['4']}{self._spaces['5']}{self._spaces['6']} 456
+        {self._spaces['7']}{self._spaces['8']}{self._spaces['9']} 789"""
+        for space in ALL_SPACES:
+            if self._spaces[space] == ".":
+                self._spaces[space] = BLANK
+        return boardStr
+
+
 def main():
     print("Welcome to tic-tac-toe!")
-    gameBoard = TTTBoard()
+    if input("use mini board? Y/N: ").lower().startswith("y"):
+        gameBoard = MiniBoard()
+    else:
+        gameBoard = TTTBoard()
     currentPlayer, nextPlayer = X, O
 
     while True:
