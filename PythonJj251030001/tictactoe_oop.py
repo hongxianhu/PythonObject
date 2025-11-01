@@ -84,13 +84,20 @@ class HintBoard(TTTBoard):
         return boardStr
 
 
+class HybridBoard(HintBoard, MiniBoard):
+    pass
+
+# class HybridBoard(MiniBoard, HintBoard):
+#     pass
+
 def main():
     print("Welcome to tic-tac-toe!")
     # if input("use mini board? Y/N: ").lower().startswith("y"):
     #     gameBoard = MiniBoard()
     # else:
     #     gameBoard = TTTBoard()
-    gameBoard = HintBoard()
+
+    gameBoard = HybridBoard()
     currentPlayer, nextPlayer = X, O
 
     while True:
