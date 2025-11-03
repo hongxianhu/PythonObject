@@ -53,7 +53,53 @@ class WizCoin:
         self._knuts = value
 
     def __repr__(self):
-        return f"{self.__class__.__qualname__}({self._galleons},{self._sickles},{self._knuts})"
+        return f"{self.__class__.__qualname__}({self.galleons},{self.sickles},{self.knuts})"
 
     def __str__(self):
-        return f"{self._galleons}g,{self._sickles}s,{self._knuts}k"
+        return f"{self.galleons}g,{self.sickles}s,{self.knuts}k"
+
+    def __add__(self, other):
+        if not isinstance(other, WizCoin):
+            return NotImplemented
+        return WizCoin(
+            self.galleons + other.galleons,
+            self.sickles + other.sickles,
+            self.knuts + other.knuts,
+        )
+
+    def __mul__(self, other):
+        if not isinstance(other, int):
+            return NotImplemented
+        if other < 0:
+            raise WizCoinException("connot multiply with negative integers")
+        return WizCoin(self.galleons * other, self.sickles * other, self.knuts * other)
+
+    def __sub__(self, other):
+        if not isinstance(other, WizCoin):
+            return NotImplemented
+        return WizCoin(
+            self.galleons - other.galleons,
+            self.sickles - other.sickles,
+            self.knuts - other.knuts,
+        )
+
+    def __pow__(self, other):
+        if not isinstance(other, int):
+            return NotImplemented
+
+        return WizCoin(self.galleons ^ other, self.sickles ^ other, self.knuts ^ other)
+
+    def __int__(self):
+        if not isinstance(self, WizCoin):
+            return NotImplemented
+        return (int(self.galleons), int(self.sickles), int(self.knuts))
+
+    def __float__(self):
+        if not isinstance(self, WizCoin):
+            return NotImplemented
+        return (float(self.galleons), float(self.sickles), float(self.knuts))
+
+    def __bool__(self):
+        if not isinstance(self, WizCoin):
+            return NotImplemented
+        return bool(self)
