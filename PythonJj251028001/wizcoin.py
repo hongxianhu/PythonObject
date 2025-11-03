@@ -8,9 +8,11 @@ class WizCoin:
         self._sickles = sickles
         self._knuts = knuts
 
+    @property
     def value(self):
         return (self._galleons * 17 * 29) + (self._sickles * 29) + (self._knuts)
 
+    @property
     def weightInGrams(self):
         return (self._galleons * 31.103) + (self._sickles * 11.34) + (self._knuts * 5.0)
 
@@ -49,3 +51,9 @@ class WizCoin:
         if value < 0:
             raise f"knuts attr must be a positive int, not a {value.__class__.__qualname__}"
         self._knuts = value
+
+    def __repr__(self):
+        return f"{self.__class__.__qualname__}({self._galleons},{self._sickles},{self._knuts})"
+
+    def __str__(self):
+        return f"{self._galleons}g,{self._sickles}s,{self._knuts}k"
