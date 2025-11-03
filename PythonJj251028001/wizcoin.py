@@ -10,11 +10,11 @@ class WizCoin:
 
     @property
     def value(self):
-        return (self._galleons * 17 * 29) + (self._sickles * 29) + (self._knuts)
+        return (self.galleons * 17 * 29) + (self.sickles * 29) + (self.knuts)
 
     @property
     def weightInGrams(self):
-        return (self._galleons * 31.103) + (self._sickles * 11.34) + (self._knuts * 5.0)
+        return (self.galleons * 31.103) + (self.sickles * 11.34) + (self.knuts * 5.0)
 
     @property
     def galleons(self):
@@ -86,20 +86,31 @@ class WizCoin:
     def __pow__(self, other):
         if not isinstance(other, int):
             return NotImplemented
-
-        return WizCoin(self.galleons ^ other, self.sickles ^ other, self.knuts ^ other)
+        return WizCoin(self.galleons**other, self.sickles**other, self.knuts**other)
 
     def __int__(self):
-        if not isinstance(self, WizCoin):
-            return NotImplemented
-        return (int(self.galleons), int(self.sickles), int(self.knuts))
+        return self.value
 
     def __float__(self):
-        if not isinstance(self, WizCoin):
-            return NotImplemented
-        return (float(self.galleons), float(self.sickles), float(self.knuts))
+        return float(self.value)
 
     def __bool__(self):
-        if not isinstance(self, WizCoin):
+        return self.value != 0
+
+    def __iadd__(self, other):
+        if not isinstance(other, WizCoin):
             return NotImplemented
-        return bool(self)
+        self.galleons += other.galleons
+        self.sickles += other.sickles
+        self.knuts += other.knuts
+        return self
+
+    def __imul__(self, other):
+        if not isinstance(other, int):
+            return NotImplemented
+        if other < 0:
+            raise WizCoinException("cannot multiply with negative integers")
+        self.galleons *= other
+        self.sickles *= other
+        self.knuts *= other
+        return self
