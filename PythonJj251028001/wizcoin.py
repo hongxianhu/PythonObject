@@ -1,3 +1,7 @@
+import collections.abc
+import operator
+
+
 class WizCoinException(Exception):
     pass
 
@@ -117,3 +121,36 @@ class WizCoin:
         self.sickles *= other
         self.knuts *= other
         return self
+
+    def _comparisonOperatorHelper(self, operatorFunc, other):
+        if isinstance(other, WizCoin):
+            return operatorFunc(self.value, other.value)
+        elif isinstance(other, (int, float)):
+            return operatorFunc(self.value, other)
+        elif isinstance(other, collections.abc.Sequence):
+            otherValue = (other[0] * 17 * 29) + (other[1] * 29) + other[2]
+            return operatorFunc(self.value, otherValue)
+        elif operatorFunc == operator.eq:
+            False
+        elif operatorFunc == operator.ne:
+            True
+        else:
+            return NotImplemented
+
+    def __eq__(self, other):
+        return self._comparisonOperatorHelper(operator.eq, other)
+
+    def __ne__(self, other):
+        return self._comparisonOperatorHelper(operator.ne, other)
+
+    def __lt__(self, other):
+        return self._comparisonOperatorHelper(operator.lt, other)
+
+    def __le__(self, other):
+        return self._comparisonOperatorHelper(operator.le, other)
+
+    def __gt__(self, other):
+        return self._comparisonOperatorHelper(operator.gt, other)
+
+    def __ge__(self, other):
+        return self._comparisonOperatorHelper(operator.ge, other)
