@@ -74,6 +74,9 @@ class WizCoin:
             raise WizCoinException("connot multiply with negative integers")
         return WizCoin(self.galleons * other, self.sickles * other, self.knuts * other)
 
+    def __rmul__(self, other):
+        return self.__mul__(other)
+
     def __sub__(self, other):
         if not isinstance(other, WizCoin):
             return NotImplemented
