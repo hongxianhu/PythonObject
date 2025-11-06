@@ -59,7 +59,7 @@ while True:
         answer = input(
             f"下一张牌会比 {currentCardSuit} 的 {currentCardRank} 大还是小? (输入 h 或 l) : "
         )
-        answer = answer.casefoid()
+        answer = answer.casefold()
         nextCardDict = getCard(gameDeckList)
         nextCardRank = nextCardDict["rank"]
         nextCardValue = nextCardDict["value"]
