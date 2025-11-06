@@ -27,9 +27,9 @@ class WizCoin:
     @galleons.setter
     def galleons(self, value):
         if not isinstance(value, int):
-            raise f"galleons attr must be set to an int, not a {value.__class__.__qualname__}"
+            raise f"galleons 属性必须设置为整数, 而不是其他类型 {value.__class__.__qualname__}"
         if value < 0:
-            raise f"galleons attr must be a positive int, not a {value.__class__.__qualname__}"
+            raise f"galleons 属性必须是正整数, 而不是 {value.__class__.__qualname__}"
         self._galleons = value
 
     @property
@@ -39,9 +39,9 @@ class WizCoin:
     @sickles.setter
     def sickles(self, value):
         if not isinstance(value, int):
-            raise f"sickles attr must be set to an int, not a {value.__class__.__qualname__}"
+            raise f"sickles 属性必须设置为整数, 而不是其他类型 {value.__class__.__qualname__}"
         if value < 0:
-            raise f"sickles attr must be a positive int, not a {value.__class__.__qualname__}"
+            raise f"sickles 属性必须是正整数, 而不是 {value.__class__.__qualname__}"
         self._sickles = value
 
     @property
@@ -51,9 +51,9 @@ class WizCoin:
     @knuts.setter
     def knuts(self, value):
         if not isinstance(value, int):
-            raise f"knuts attr must be set to an int, not a {value.__class__.__qualname__}"
+            raise f"knuts 属性必须设置为整数, 而不是其他类型 {value.__class__.__qualname__}"
         if value < 0:
-            raise f"knuts attr must be a positive int, not a {value.__class__.__qualname__}"
+            raise f"knuts 属性必须是正整数, 而不是 {value.__class__.__qualname__}"
         self._knuts = value
 
     def __repr__(self):
@@ -75,7 +75,7 @@ class WizCoin:
         if not isinstance(other, int):
             return NotImplemented
         if other < 0:
-            raise WizCoinException("connot multiply with negative integers")
+            raise WizCoinException("不能与负整数相乘")
         return WizCoin(self.galleons * other, self.sickles * other, self.knuts * other)
 
     def __rmul__(self, other):
@@ -116,7 +116,7 @@ class WizCoin:
         if not isinstance(other, int):
             return NotImplemented
         if other < 0:
-            raise WizCoinException("cannot multiply with negative integers")
+            raise WizCoinException("不能与负整数相乘")
         self.galleons *= other
         self.sickles *= other
         self.knuts *= other
