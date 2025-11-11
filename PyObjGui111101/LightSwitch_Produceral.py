@@ -2,9 +2,11 @@ def turnOn():
     global switchIsOn
     switchIsOn = True
 
+
 def turnOff():
     global switchIsOn
-    switchIsOn=False
+    switchIsOn = False
+
 
 switchIsOn = False
 
