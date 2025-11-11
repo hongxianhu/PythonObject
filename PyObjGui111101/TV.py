@@ -1,5 +1,7 @@
 class TV:
-    def __init__(self):
+    def __init__(self, brand, location):
+        self.brand = brand
+        self.location = location
         self.isOn = False
         self.isMuted = False
         self.channelList = [2, 4, 5, 7, 9, 11, 20, 36, 44, 54, 65]
@@ -53,7 +55,8 @@ class TV:
 
     def showInfo(self):
         print()
-        print("TV Status:")
+        print("Status of TV:", self.brand)
+        print("Location is:", self.location)
         if self.isOn:
             print("     TV is: On")
             print("     Channel is:", self.channelList[self.channelIndex])
